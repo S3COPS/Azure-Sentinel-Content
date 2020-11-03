@@ -1,19 +1,20 @@
 {
-    "displayName": "string",
-    "description": "string",
+    "displayName": "Raccine detected malicious activity (Potential Ransomware)",
+    "description": "Checks for source "Raccine" within the Windows Application Event Log,  event id 2 which indicates the Raccine tool detected malicious activity, potentially Ransomware, destructive malware or an attacker covering tracks.
+False Positives include tools that manage Shadow copies on behalf of users.",
     "severity": "High",
     "enabled": true,
-    "query": "SecurityEvent | where EventID == \"4688\" | where CommandLine contains \"-noni -ep bypass $\"",
-    "queryFrequency": "5H",
-    "queryPeriod": "5H",
+    "query": "Event | where TimeGenerated >= ago(timeframe) | where Source == "Raccine" | summarize StartTimeUtc = min(TimeGenerated), EndTimeUtc = max(TimeGenerated), EventCount = count() by EventID, Computer, Source, UserName, RenderedDescription| extend timestamp = StartTimeUtc, AccountCustomEntity = UserName, HostCustomEntity = Computer",
+    "queryFrequency": "30m",
+    "queryPeriod": "30m",
     "triggerOperator": "GreaterThan",
-    "triggerThreshold": 5,
-    "suppressionDuration": "6H",
+    "triggerThreshold": 0,
+    "suppressionDuration": "1H",
     "suppressionEnabled": false,
     "tactics": [
-      "Persistence",
-      "LateralMovement",
-      "Collection"
+      "Execution",
+      "Defense Evasion",
+      "Impact"
     ],
     "playbookName": "string",
     "aggregationKind": "string",
