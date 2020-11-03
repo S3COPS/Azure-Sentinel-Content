@@ -1,0 +1,33 @@
+{
+    "displayName": "string",
+    "description": "string",
+    "severity": "High",
+    "enabled": true,
+    "query": "SecurityEvent | where EventID == \"4688\" | where CommandLine contains \"-noni -ep bypass $\"",
+    "queryFrequency": "5H",
+    "queryPeriod": "5H",
+    "triggerOperator": "GreaterThan",
+    "triggerThreshold": 5,
+    "suppressionDuration": "6H",
+    "suppressionEnabled": false,
+    "tactics": [
+      "Persistence",
+      "LateralMovement",
+      "Collection"
+    ],
+    "playbookName": "string",
+    "aggregationKind": "string",
+    "createIncident": true,
+    "groupingConfiguration": {
+      "GroupingConfigurationEnabled": true,
+      "reopenClosedIncident": true,
+      "lookbackDuration": "PT6H",
+      "entitiesMatchingMethod": "string",
+      "groupByEntities": [
+        "Account",
+        "Ip",
+        "Host",
+        "Url"
+      ]
+    }
+  }
